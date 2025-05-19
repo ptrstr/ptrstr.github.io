@@ -79,16 +79,16 @@ If nothing works, try runninng it on a new Ubuntu VM.
 
 ## 5/9 [reverse] 1/2 Such a shame that this compression does not have a header.
 
-Using `7z`, I was unable to extract the AppImage, but looking around on Google I found that providing the option `--appimage-help` yeilds a menu, which contains an option `--appimage-extract` to dump its contents.
+Using `7z`, I was unable to extract the AppImage, but looking around on Google I found that providing the option `--appimage-help` yields a menu, which contains an option `--appimage-extract` to dump its contents.
 
 There were many binaries and files in the actual AppImage.
 {{< image src="file-listing.png" alt="File listings" position="center" style="border-radius: 8px;" >}}
 
 However, looking for interesting strings like 'jackpot' found that the `shared/bin/slot-machine` (250MB) was the interesting binary.
 
-The size is explained by two things. Firstly, right after opening it, we can see that the symbols were included in the binary. Secodnly, after looking at the function names and other information, we can see that the app uses Tauri.
+The size is explained by two things. Firstly, right after opening it, we can see that the symbols were included in the binary. Secondly, after looking at the function names and other information, we can see that the app uses Tauri.
 
-Tauri is a framework that allows to build desktop applications in Rust, using a HTML/CSS/JavaScript frontend. It is similar to Electron for the idea, but unfortunately for us, it differs in that the backend language is compiled, and the assets aren't bundled in a nice separate file.
+Tauri is a framework that allows building desktop applications in Rust, using a HTML/CSS/JavaScript frontend. It is similar to Electron for the idea, but unfortunately for us, it differs in that the backend language is compiled, and the assets aren't bundled in a nice separate file.
 
 Tauri bundles assets inside the binary itself and compresses them. I didn't really want to go and carve out the asset information, and preliminary attempts of dumping the memory of the `WebKitWebProcess` at runtime and finding the HTML wasn't too convenient.
 
