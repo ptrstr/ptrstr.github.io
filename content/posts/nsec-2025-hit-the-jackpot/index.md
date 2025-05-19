@@ -545,7 +545,7 @@ print(len(a))
 mt = MT19937()
 print(mt.n)
 mt.clone_state_from_output(a[:mt.n])
-for _ in range(800 - 624):
+for _ in range(800 - mt.n): # the debug dump is 3200 bytes, so 800 random 4 byte values
     mt.get_next_random().to_bytes(4, byteorder='big').hex()
 
 for i in range(30):
