@@ -5,6 +5,7 @@ tags = ["nsec", "writeup", "ctf"]
 keywords = ["nsec", "writeup", "ctf", "rng", "reversing", "web"]
 description = "Writeup for NorthSec 2025's Hit the Jackpot track (web, reversing and rng)"
 cover = "flag-reels.png"
+color = "blue"
 +++
 
 ## Intro
@@ -143,7 +144,7 @@ pub trait Level {
     fn get_byte(&mut self) -> u8; // generates a random byte using the level's rng
     fn tick(&mut self); // probably called by the timer, but wasn't needed for flags
     fn get_debug_info(&self) -> Vec<u8>; // dumps some information about the internal state of the rng
-    fn get_payout(&self, symbol: Symbol&) -> u64; // gets payout for a specific symbol. not necessary for flag
+    fn get_payout(&self, symbol: &Symbol) -> u64; // gets payout for a specific symbol. not necessary for flag
 }
 {{< /code >}}
 
