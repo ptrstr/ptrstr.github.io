@@ -1,3 +1,0 @@
-# ptrstr
-
-For the Arctic!
