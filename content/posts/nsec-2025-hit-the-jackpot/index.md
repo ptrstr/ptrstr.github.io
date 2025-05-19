@@ -751,6 +751,9 @@ for i in range(100):
 
 {{< video src="flag-rng-level4" >}}
 
+The NorthSec team also captured a video of myself completing this last challenge:
+{{< video src="flag-rng-level4-irl" >}}
+
 ## Closing
 
 This was a super fun and interesting track. It was a great oppotunity to learn how Tauri worked, and a bit more on `z3` too.
