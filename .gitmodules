@@ -4,3 +4,9 @@
 [submodule "themes/hugo-video"]
 	path = themes/hugo-video
 	url = https://github.com/martignoni/hugo-video.git
+[submodule "content/posts/cve-2025-4524"]
+	path = content/posts/cve-2025-4524
+	url = https://github.com/ptrstr/CVE-2025-4524/
+[submodule "content/posts/cve-2025-47810"]
+	path = content/posts/cve-2025-47810
+	url = https://github.com/ptrstr/CVE-2025-47810/
