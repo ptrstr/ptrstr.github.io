@@ -14,7 +14,7 @@ dir = ':cacheDir/images'
 themeColor = "green"
 
 # if you set this to 0, only submenu trigger will be visible
-showMenuItems = 2
+showMenuItems = 3
 
 showLanguageSelector = false
 fullWidthTheme = false
@@ -99,3 +99,7 @@ url = "/posts"
 identifier = "about"
 name = "About"
 url = "/about"
+[[languages.en.menu.main]]
+identifier = "vulnerabilities"
+name = "Vulnerabilities"
+url = "/vulnerabilities"
