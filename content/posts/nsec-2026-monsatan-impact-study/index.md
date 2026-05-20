@@ -19,7 +19,7 @@ This year I completed a very interesting and unusual challenge that explored a v
 
 ### [1/5] Start of the track. Let's move on to the Monsatan impact study web page (Good, what's next? [CFSS:0.3/TS:B/E:L/HSFC:N=2-4]) (2 points)
 
-Unfortunately, I'm not too sure what the first flag was, but it had something to with running `exiftool` on a PDF to see the website associated with it.
+Unfortunately, I'm not too sure what the first flag was, but it had something to with running `exiftool` on a PDF to see the website associated with it. When going to the website, we were met with a large list of data points.
 
 ### [2/5] Found in SQL (Keep it up! (2/5) [CFSS:0.3/TS:B/E:L/HSFC:N=2-4]) (3 points)
 
@@ -41,13 +41,15 @@ After a little playing around, I was able to find that the injection was suscept
 
 ![Flag table](flag_table.png)
 
+By dumping the schema, another table called `Study.HiddenFlag` was available, but trying to read from it errored out and returned no results.
+
 ### [3/5] File Read (Next flag is hidden in the database, but you must reach it using remote code execution. (3/5) [CFSS:0.3/TS:I/E:M/HSFC:N=6-10]) (7 points)
 
 After wasting a lot of time trying to leak the `HiddenFlag`, I received a small nudge to look in another direction, to which I did.
 
 While reading the [Intersystems SQL Documentation](https://docs.intersystems.com/irislatest/csp/documatic/%25CSP.Documatic.cls?LIBRARY=%25SYS&CLASSNAME=INFORMATION.SCHEMA.TABLES), I kept encountering snippets that would not work in SQL and only in ObjectScript so I dismissed them all since we weren't in an ObjectScript context.
 
-However, after trying the `"` initially, there was an unusual error I initially dismissed but went back to t escape the SQL context.
+However, after trying the `"` initially, there was an unusual error I initially dismissed but went back to to escape the SQL context.
 
 ![Double quote error](double_quote_error.png)
 
@@ -125,12 +127,7 @@ import base64
 
 import requests
 
-injection = """
-set bob = ##class(%File).%New("/flag-3.txt")
-set sc = bob.Open("R")
-return bob.ReadLine()
-"""
-
+# Snippet to list directory. Comment out snippet below to use it
 injection = """
 Set rs = ##class(%ResultSet).%New("%Library.File:FileSet")
 Do rs.Execute("/home/irisowner/bin", "*", "Name", 0)
@@ -140,6 +137,13 @@ While rs.Next() {
     Set allFiles = allFiles _ " " _  rs.Get("Name")
 }
 return allFiles
+"""
+
+# Snippet to read file
+injection = """
+set bob = ##class(%File).%New("/flag-3.txt")
+set sc = bob.Open("R")
+return bob.ReadLine()
 """
 
 params = {
